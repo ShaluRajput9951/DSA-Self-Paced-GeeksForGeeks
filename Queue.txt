@@ -1,0 +1,223 @@
+//Implement Queue using array-->cpp
+void MyQueue :: push(int x)
+{
+arr[rear++] = x;
+}
+
+int MyQueue :: pop()
+{
+if(front >= rear)
+return -1;
+
+return arr[front++];
+}
+
+==============================================================================================
+//Operations on Queue-->java
+class GfgQueue {
+queue head, tail, tail_1;
+void enqueue(int x){
+// Code here
+queue obj=new queue(x);
+
+if(head==null)
+{
+head=obj;
+tail=obj;
+}
+else
+{
+tail_1=tail;
+tail.next=obj;
+tail=obj;
+}
+}
+void dequeue(){
+// code here
+if(head==null)
+{
+//System.out.println();
+return;
+}
+head=head.next;
+}
+void front(){
+// Code here
+int x;
+if(head==null)
+x=-1;
+else
+x=head.data;
+System.out.println(x);
+}
+void find(int x){
+boolean elementFound = false;
+queue temp=head;
+while(temp!=null)
+{
+if(temp.data==x)
+{
+elementFound=true;
+break;
+}
+temp=temp.next;
+}
+// Code here
+if(elementFound){
+System.out.println("Yes");
+} else {
+System.out.println("No");
+}
+}
+}
+class queue
+{
+int data;
+queue next;
+queue(int a)
+{
+data=a;
+next=null;
+}
+}
+==============================================================================================
+//Implement Queue using Linked List-->cpp
+void MyQueue:: push(int x)
+{
+    QueueNode* newnode=new QueueNode(x);
+    newnode->data=x;
+    newnode->next=NULL;
+    if(front==NULL)
+    {
+        front=newnode;                                             //only front(head) gets deleted in queue
+        rear=newnode;                                               //and new nodes are added at rear 
+        return;
+    }                                                  
+    rear->next=newnode;
+    rear=newnode;
+    
+}
+/*The method pop which return the element
+  poped out of the queue*/
+int MyQueue :: pop()
+{    if(front==NULL)               //this means no nodes are present
+      return -1;
+        if(front==rear)     //this condition means there are only one node left
+        {
+            int num=front->data;
+             delete(front);
+              front=NULL;
+              rear=NULL;
+             return num;
+        }
+        QueueNode* temp=front;
+        int num=front->data;
+        front=front->next;           //simply assign next node of front to front as front is going to be popped
+        delete(temp);
+        return num;
+        
+}
+==============================================================================================
+//Queue Reversal-->cpp
+queue<long long int> rev(queue<long long int> q)
+{
+  stack<long long int>s1;
+    while(!q.empty())
+    {
+     s1.push(q.front());
+     q.pop();
+    }
+    while(!s1.empty())
+    {
+    q.push(s1.top());
+     s1.pop();
+    }
+  return q;
+}
+==============================================================================================
+//Queue using two Stacks-->cpp
+void StackQueue :: push(int x)
+ {
+        // Your Code
+        
+        // Simple 
+        s1.push(x);
+        
+ }
+/*The method pop which return the element poped out of the queue*/
+int StackQueue :: pop()
+{
+        // Your Code     
+        
+        // If S2 is empty tranfer all elements to S2 from S1 and pop out 1st element
+        if(s2.empty()){
+            if(s1.empty()){
+                return -1;
+            }
+            else{
+                while(!s1.empty()){
+                    int ele=s1.top();
+                    s1.pop();
+                    s2.push(ele);
+                }
+                int ele=s2.top();
+                s2.pop();
+                return ele;
+            }
+        }
+        // S2 is not empty so just pop out element from it
+        else{
+            int ele=s2.top();
+            s2.pop();
+            return ele;
+        }
+}
+
+==============================================================================================
+#Generate Binary Numbers-->python
+def GenerateBinary(n):
+    for i in range(1,n+1):
+        j=bin(i)
+        print(j[2:],end=" ")
+
+==============================================================================================
+//Reverse First K elements of Queue-->cpp
+queue<ll> modifyQueue(queue<ll> q, int k)
+{
+    int i,j;
+    queue<ll>nq;
+    stack<ll>st;
+    for(i=0;i<k;i++)
+    {
+        int x=q.front();
+        st.push(x);
+        q.pop();
+    }
+    while(!st.empty())
+    {
+        int x= st.top();
+        nq.push(x);
+        st.pop();
+    }
+    while(!q.empty())
+    {
+        int x=q.front();
+        nq.push(x);
+        q.pop();
+    }
+    return nq;
+}
+==============================================================================================
+#Maximum of all subarrays of size k-->python
+def max_of_subarrays(arr,n,k):
+    
+    #code here
+
+    max = 0
+    
+    for i in range(n - k + 1): 
+        max = arr[i] 
+        for j in range(1, k): 
+            if arr[i + j] > max: 
+                max = arr[i + j] 
+        print(str(max) + " ", end = "") 

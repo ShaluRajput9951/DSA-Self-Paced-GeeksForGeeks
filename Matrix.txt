@@ -1,0 +1,361 @@
+//Adding two matrices-->cpp
+void sumMatrix(int n1, int m1, int n2, int m2, int arr1[SIZE][SIZE], int arr2[SIZE][SIZE]){
+    
+    // Your code here
+    if ((n1 == n2) and (m1 == m2))
+    {
+        for (int i = 0; i < n1; i++)
+        for (int j = 0; j < m1; j++)
+           cout<< (arr1[i][j] + arr2[i][j])<<" ";
+    
+    }	
+    else
+    {
+    cout<< -1;
+            
+    }
+}
+===============================================================================================
+//Sum of upper and lower triangles-->cpp
+void sumTriangles(int n, int mat[SIZE][SIZE]){
+    
+    // Your code here
+    int i, j; 
+    int upper_sum = 0; 
+    int lower_sum = 0; 
+      
+    /*to calculate sum of upper triangle*/
+    for (i = 0; i < n; i++) 
+        for (j = 0; j < n; j++) { 
+            if (i <= j) { 
+                upper_sum += mat[i][j]; 
+            } 
+        } 
+  
+ cout<<upper_sum<<" "; 
+      
+    /*to calculate sum of lower*/
+    for (i = 0; i < n; i++) 
+        for (j = 0; j < n; j++) { 
+            if (j <= i) { 
+                lower_sum += mat[i][j]; 
+            } 
+        } 
+  
+    cout<<lower_sum; 
+} 
+
+===============================================================================================
+//Multiply the matrices-->java
+class Multiplication
+{
+    //Complete this function
+    static void multiplyMatrix(int n1, int m1, int n2, int m2, int arr1[][], int arr2[][])
+    {
+     if (m1 != n2) {
+		System.out.print("-1");
+		return;
+	}
+	int product[][] = new int[n1][m2];
+	for (int i = 0; i < n1; i++) {
+		for (int j = 0; j < m2; j++) {
+			for (int k = 0; k < m1; k++) {
+				product[i][j] += (arr1[i][k] * arr2[k][j]);
+			}
+		}
+	}
+	for (int i = 0; i < n1; i++)
+		for (int j = 0; j < m2; j++)
+			System.out.print(product[i][j] + " ");
+        //Your code here
+    }
+}
+===============================================================================================
+//Print Matrix in snake Pattern-->python
+def printS(mat,N): 
+   #Your code here
+   for i in range(N): 
+        if i % 2 == 0: 
+            for j in range(N): 
+                print(str(mat[i][j]), 
+                          end = " ") 
+        else: 
+            for j in range(N - 1, -1, -1): 
+                print(str(mat[i][j]),  
+                          end = " ")
+===============================================================================================
+//Transpose of Matrix-->python
+def transpose(A,N):
+    ##Your code here
+    for i in range(N): 
+        for j in range(i+1, N): 
+            A[i][j], A[j][i] = A[j][i], A[i][j] 
+===============================================================================================
+//Rotate by 90 degree-->python
+def rotateby90(mat, N):
+    #Your code here
+    for x in range(0, int(N / 2)): 
+        for y in range(x, N-x-1): 
+            temp = mat[x][y] 
+            mat[x][y] = mat[y][N-1-x] 
+            mat[y][N-1-x] = mat[N-1-x][N-1-y] 
+            mat[N-1-x][N-1-y] = mat[N-1-y][x] 
+            mat[N-1-y][x] = temp 
+
+def displayMatrix( mat ): 
+    for i in range(0, N): 
+        for j in range(0, N): 
+            print (mat[i][j], end = ' ') 
+        print ("") 
+===============================================================================================
+//Determinant of a Matrix-->python
+def getDeterminant(mat,n):
+    #code here
+    temp = [0]*n   
+    total=1 
+    det=1  
+
+    for i in range(0,n): 
+        index=i  
+        while(mat[index][i] == 0 and index < n): 
+            index+=1
+     
+        if(index == n): 
+            continue
+  
+        if(index != i): 
+            for j in range(0,n): 
+                mat[index][j],mat[i][j] = mat[i][j],mat[index][j] 
+            det = det*int(pow(-1,index-i)) 
+        for j in range(0,n): 
+            temp[j] = mat[i][j] 
+        for j in range(i+1,n): 
+            num1 = temp[i]      
+            num2 = mat[j][i]   
+            for k in range(0,n): 
+                mat[j][k] = (num1*mat[j][k]) - (num2*temp[k]) 
+            total = total * num1 # Det(kA)=kDet(A); 
+    for i in range(0,n): 
+         det = det*mat[i][i] 
+    return int(det/total)
+===============================================================================================
+//Boundary traversal of matrix-->java
+class BoundaryTraversal
+{
+ /*  n1, m1: rows and cols of matrix
+     a[][]: input matrix
+*/
+    static void boundaryTraversal(int n1, int m1, int a[][])
+    {
+        //Your code here
+        if(n1==1 || m1== 1){
+		 for(int i=0;i<n1;i++)
+			 for(int j=0;j<m1;j++)
+				 System.out.print(a[i][j]+" ");
+		 return;
+	}
+	int row = 0, col=0;
+	for(col = 0;col<m1; col++)
+		System.out.print(a[row][col]+" ");
+	col=m1-1;
+	for(row=1;row<n1;row++)
+		System.out.print(a[row][col]+" ");
+	row=n1-1;
+	for(col=m1-2;col>=0;col--)
+		System.out.print(a[row][col]+" ");
+	col = 0;
+	for(row=n1-2;row>0;row--)
+		System.out.print(a[row][col]+" ");
+    }
+    
+}
+===============================================================================================
+//Exchange matrix columns-->java
+class ModifyMat
+{
+    //Complete this function
+    static void exchangeColumns(int n1, int m1, int arr1[][])
+    {
+       //Your code here
+       if(m1!=1){
+        for(int row = 0;row<n1;row++){
+    	//swap arr[row][0] and arr[row][m1-1]
+    	arr1[row][0]^=arr1[row][m1-1];
+    	arr1[row][m1-1]^=arr1[row][0];
+    	arr1[row][0]^=arr1[row][m1-1];
+        }
+    }
+    for(int i=0;i<n1;i++){
+		for(int j=0;j<m1;j++)
+			System.out.print(arr1[i][j]+" ");
+	}
+    }
+}
+
+===============================================================================================
+//Spirally traversing a matrix-->java
+class Traverse
+{
+    //Complete this function
+    static void spirallyTraverse(int m, int n, int arr1[][])
+    {
+       //Your code here
+       int ctr = 0;
+	int index_1 = 0, index_2 = 1, index_3 = n - 2, index_4 = m - 2;
+	while (ctr <= (m * n)) {
+		
+		for (int col = index_1; col < n - index_1; col++) {
+			System.out.print(arr1[index_1][col] + " ");
+			ctr++;
+		}
+		if (ctr >= (m * n))
+			return;
+		
+		for (int row = index_2; row < m - index_1; row++) {
+			System.out.print(arr1[row][n - 1 - index_1] + " ");
+			ctr++;
+		}
+		if (ctr >= (m * n))
+			return;
+		
+		for (int col = index_3; col >= 0 + index_1; col--) {
+			System.out.print(arr1[m - 1 - index_1][col] + " ");
+			ctr++;
+		}
+		if (ctr >= (m * n))
+			return;
+		
+		for (int row = index_4; row >= 0 + index_1 + 1; row--) {
+			System.out.print(arr1[row][index_1] + " ");
+			ctr++;
+		}
+		index_1++;
+		index_2++;
+		index_3--;
+		index_4--;
+	}
+    }
+}
+===============================================================================================
+//Reversing the columns of a Matrix-->cpp
+void reverseCol(int n1, int m1, int arr1[SIZE][SIZE])
+{
+    //Your code here
+    for (int i = 0; i < n1; i++) {
+		for (int j = 0; j < (m1 / 2); j++) {
+		
+			arr1[i][j] ^= arr1[i][m1 - 1 - j];
+			arr1[i][m1 - 1 - j] ^= arr1[i][j];
+			arr1[i][j] ^= arr1[i][m1 - 1 - j];
+		}
+	}
+}
+===============================================================================================
+//Interchanging the rows of a Matrix-->java
+class ModifyMat
+{
+    //Complete this function
+    static void interchangeRows(int n1, int m1, int arr1[][])
+    {
+        //Your code here
+         for (int col = 0; col < m1; col++) {
+			for (int row = 0; row < (n1 / 2); row++) {
+				
+				arr1[row][col] ^= arr1[n1 - 1 - row][col];
+				arr1[n1 - 1 - row][col] ^= arr1[row][col];
+				arr1[row][col] ^= arr1[n1 - 1 - row][col];
+			}
+		}
+    }
+}
+===============================================================================================
+//Search in a row-column sorted Matrix-->java
+class SearchinMat
+{
+    //Complete this function
+    static int search(int n1, int m1, int arr1[][], int x)
+    {
+       //Your code here
+       int row = 0, col = m1 - 1;
+
+	while (row >= 0 && row < n1 && col >= 0 && col < m1) {
+		if (arr1[row][col] == x)
+			return 1;
+		if (arr1[row][col] < x)
+			row++;
+		else
+			col--;
+	}
+	return 0;
+    }
+}
+
+===============================================================================================
+//Boolean Matrix Problem-->java
+class ModifyMat
+{
+    //Complete this function
+    static void booleanMatrix(int r, int c, int mat[][])
+    {
+        //Your code here
+        int row[] = new int[r];
+	int col[] = new int[c];
+	for (int i = 0; i < r; i++) {
+		for (int j = 0; j < c; j++) {
+			if (mat[i][j] == 1) {
+				row[i] = 1;
+				col[j] = 1;
+			}
+		}
+	}
+	StringBuilder sb=new StringBuilder();
+	for (int i = 0; i < r; i++) {
+		for (int j = 0; j < c; j++) {
+			if (col[j] == 1 || row[i] == 1)
+				mat[i][j] = 1;
+			sb.append(mat[i][j] + " ");
+		}
+		sb.append("\n");
+	}
+	System.out.print(sb);
+    }
+}
+
+===============================================================================================
+//Make Matrix Beautiful-->python
+def findMinOpeartion(matrix, n):
+    #Your code here
+    sumRow = [0] * n 
+    sumCol = [0] * n 
+    for i in range(n): 
+        for j in range(n) : 
+            sumRow[i] += matrix[i][j] 
+            sumCol[j] += matrix[i][j] 
+    maxSum = 0
+    for i in range(n) : 
+        maxSum = max(maxSum, sumRow[i]) 
+        maxSum = max(maxSum, sumCol[i]) 
+  
+    count = 0
+    i = 0
+    j = 0
+    while i < n and j < n : 
+        diff = min(maxSum - sumRow[i],maxSum - sumCol[j]) 
+        matrix[i][j] += diff 
+        sumRow[i] += diff 
+        sumCol[j] += diff 
+        count += diff 
+
+        if (sumRow[i] == maxSum): 
+            i += 1
+        if (sumCol[j] == maxSum): 
+            j += 1
+    return count 
+  
+
+def printMatrix(matrix, n): 
+    for i in range(n) : 
+        for j in range(n): 
+            print(matrix[i][j], end = " ") 
+        print() 
+
