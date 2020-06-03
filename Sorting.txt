@@ -1,0 +1,498 @@
+//Bubble Sort-->java
+class BubbleSort
+{
+	static void bubble(int arr[], int i, int n)
+    {
+       // add your code here
+       for(int j=0;j<n-i-1;j++)
+       {
+           if(arr[j]>arr[j+1])
+           {
+                arr[j]=arr[j]+arr[j+1];
+                arr[j+1]=arr[j]-arr[j+1];
+                arr[j]=arr[j]-arr[j+1];
+            }
+        }
+    }
+}
+===============================================================================================
+//Insertion Sort-->java
+class InsertionSort
+{
+  static void insert(int arr[],int i)
+  {
+       // Your code here
+       int x = arr[i],temp,j;
+       for(j=i-1;j>=0;j--){
+           if(arr[j]>x)
+                arr[j+1]=arr[j];
+            else
+                break;
+       }
+       arr[j+1]=x;
+  }
+}
+===============================================================================================
+//Quick Sort-->cpp
+int partition (int arr[], int low, int high)
+{
+   int i = low;
+   int piv = arr[high];
+   int c;
+   for(c = low; c<high; c++){
+       if(arr[c]< piv){
+           swap(arr[c], arr[i]);
+           i++;
+       }
+   }
+   
+===============================================================================================
+//Binary Array Sorting-->python
+def binSort(a, n): 
+    #Your code here
+    j = -1
+    for i in range(n): 
+        if a[i] < 1: 
+            j = j + 1
+              
+            # swap 
+            a[i], a[j] = a[j], a[i] 
+===============================================================================================
+//Inversion of array-->python
+def Inversion_Count(arr,n):
+   
+    temp_arr = [0]*n 
+    return _mergeSort(arr, temp_arr, 0, n-1) 
+  
+
+  
+def _mergeSort(arr, temp_arr, left, right): 
+    inv_count = 0
+    if left < right: 
+
+        mid = (left + right)//2
+        inv_count += _mergeSort(arr, temp_arr, left, mid) 
+        inv_count += _mergeSort(arr, temp_arr, mid + 1, right) 
+        inv_count += merge(arr, temp_arr, left, mid, right) 
+    return inv_count 
+    
+def merge(arr, temp_arr, left, mid, right): 
+    i = left     # Starting index of left subarray 
+    j = mid + 1 # Starting index of right subarray 
+    k = left     # Starting index of to be sorted subarray 
+    inv_count = 0
+  
+    
+  
+    while i <= mid and j <= right: 
+  
+        # There will be no inversion if arr[i] <= arr[j] 
+  
+        if arr[i] <= arr[j]: 
+            temp_arr[k] = arr[i] 
+            k += 1
+            i += 1
+        else: 
+            # Inversion will occur. 
+            temp_arr[k] = arr[j] 
+            inv_count += (mid-i + 1) 
+            k += 1
+            j += 1
+  
+    # Copy the remaining elements of left subarray into temporary array 
+    while i <= mid: 
+        temp_arr[k] = arr[i] 
+        k += 1
+        i += 1
+  
+    # Copy the remaining elements of right subarray into temporary array 
+    while j <= right: 
+        temp_arr[k] = arr[j] 
+        k += 1
+        j += 1
+  
+    # Copy the sorted subarray into Original array 
+    for loop_var in range(left, right + 1): 
+        arr[loop_var] = temp_arr[loop_var] 
+          
+    return inv_count 
+===============================================================================================
+//Union of Two Sorted Arrays-->java
+class Union
+{
+    
+    static void findUnion(int arr1[], int arr2[], int n, int m)
+    {
+        // add your code here
+        StringBuilder sb = new StringBuilder();
+    int i =0, j = 0;
+	while(i<n && j<m){
+		if(arr1[i]==arr2[j]){
+		    if (i == 0 || arr1[i] != arr1[i - 1])
+			    sb.append(arr1[i]+" ");
+			i++; j++;
+		}
+		else if(arr1[i]<arr2[j]){
+			if(i==0 || arr1[i]!=arr1[i-1])
+				sb.append(arr1[i]+" ");
+			i++;
+		}
+		else{
+			if(j==0 || arr2[j]!=arr2[j-1])
+				sb.append(arr2[j]+" ");
+			j++;
+		}
+	}
+	while(i<n){
+		if(i==0 || arr1[i]!=arr1[i-1])
+			sb.append(arr1[i]+" ");
+		i++;
+	}
+	while(j<m){
+		if(j==0 || arr2[j]!=arr2[j-1])
+			sb.append(arr2[j]+" ");
+		j++;
+	}
+	System.out.print(sb);
+    }
+}
+
+===============================================================================================
+//Intersection of two sorted arrays-->java
+class Intersection
+{
+    /* Function prints Intersection of arr1[] and arr2[] 
+    n is the number of elements in arr1[] 
+    m is the number of elements in arr2[] */
+    static void printIntersection(int arr1[], int arr2[], int n, int m) 
+    {
+        // add your code here
+        StringBuilder sb = new StringBuilder();
+    int i = 0, j=0;
+	while(i<n && j<m){
+		if(arr1[i]==arr2[j]){
+			if((i==0 || arr1[i]!=arr1[i-1]) && (j==0 || arr2[j]!=arr2[j-1]))
+				sb.append(arr1[i]+" ");
+			i++;j++;
+		}
+		else if(arr1[i]<arr2[j])
+			i++;
+		else if(arr2[j]<arr1[i])
+			j++;
+		}
+	System.out.print(sb);
+    }
+
+}
+
+===============================================================================================
+//Count possible triangles-->python
+def findNumberOfTriangles(arr,n):
+    #code here
+    arr.sort() 
+    count = 0
+    for i in range(0, n-2): 
+        k = i + 2
+        for j in range(i + 1, n): 
+            while (k < n and arr[i] + arr[j] > arr[k]): 
+                k += 1
+            if(k>j): 
+                count += k - j - 1
+  
+    return count 
+
+===============================================================================================
+//Find triplets with zero sum-->cpp
+bool findTriplets(int arr[], int n)
+{ 
+    //Your code here
+    map< int, int > mp;
+    for (int i=0; i < n; i++) {
+        if (mp.find(arr[i]) == mp.end()) mp[arr[i]] = 0;
+        mp[arr[i]] ++;
+    }
+    for (int i=0; i < n-1; i++) {
+        for (int j=i+1; j < n; j++) {
+            mp[arr[i]] --;
+            mp[arr[j]] --;
+            if (mp.find((-1*(arr[i]+arr[j]))) != mp.end() && mp[-1*(arr[i]+arr[j])] > 0) {
+                return true;
+            }
+            mp[arr[i]] ++;
+            mp[arr[j]] ++;
+        }
+    }
+    return false;
+}
+===============================================================================================
+//Three way partitioning-->cpp
+vector<int> threeWayPartition(vector<int> arr, int lowVal, int highVal)
+{
+     //Your code here
+     int n =arr.size();
+	int start = 0, end = n-1; 
+
+	// Traverse elements from left 
+	for (int i=0; i<=end;) 
+	{ 
+		 
+		if (arr[i] < lowVal) 
+			swap(arr[i++], arr[start++]); 
+
+		 
+		else if (arr[i] > highVal) 
+			swap(arr[i], arr[end--]); 
+
+		else
+			i++; 
+// 		printarray(arr, n);
+	} 
+    return arr;    
+}
+===============================================================================================
+//Counting Sort-->python
+def countingSort(s,n):
+    # code here
+    a = sorted(s)
+    a1 = ''.join(a)
+    print(a1,end='')
+
+===============================================================================================
+//Closet 0s 1s and 2s-->java
+class Sort012
+{
+    // Function to segregate 0s, 1s and 2s
+    // A[]: input array
+    // n: size of array
+    public static void segragate012(int A[], int n){
+        // your code here
+        int mid = 0;
+int start = 0;
+int end = n-1;
+
+while (mid <= end) {
+if (A[mid] == 0) {
+int temp = A[mid];
+A[mid] = A[start];
+A[start] = temp;
+mid++;
+start++;
+}
+else if (A[mid] == 1) {
+mid++;
+}
+else if (A[mid] == 2) {
+int temp = A[mid];
+A[mid] = A[end];
+A[end] = temp;
+end--;
+}
+}
+    }
+}
+===============================================================================================
+//Sort by Absolute Difference-->
+===============================================================================================
+//Triplet Sum in Array-->cpp
+bool find3Numbers(int A[], int arr_size, int x)
+{
+ 	sort(A,A+arr_size);
+ 	for(int i=arr_size-1;i>=1;i--)
+ 	{
+ 		int l=0,r=i-1;
+ 		while(l<r)
+ 		{
+ 			if((A[i]+A[l]+A[r])==x)
+ 				return 1;
+ 			if((A[i]+A[l]+A[r])<x)
+ 				l++;
+ 			else
+ 				r--;
+ 		}
+ 	}   
+ 	return 0;
+}
+===============================================================================================
+//Kth smallest element-->python
+def kthSmallest(arr,n,k):
+    arr_s = sorted(arr)
+    return arr_s[k-1]
+    
+if __name__ == '__main__':
+    T = int(input())
+    for tc in range(T):
+        N = int(input())
+        arr = list(map(int,input().strip().split()))
+        k = int(input())
+        print (kthSmallest(arr,N,k))
+===============================================================================================
+//Number of pairs-->cpp
+long long countPairs(int x[], int y[], int m, int n)
+{
+   sort(x,x+m);
+   int max1=x[m-1];
+   sort(y,y+n);
+   long long res=0;
+   //for 1 and 2
+   long long ct2_1=upper_bound(x,x+m,2)-lower_bound(x,x+m,2); //count of 2 in 1st array
+   
+   long long ct1_2=upper_bound(y,y+n,1)-lower_bound(y,y+n,1);  //count of 1 in 2nd array
+   ct1_2+=y+n-lower_bound(y,y+n,5); 
+   res+=ct2_1*ct1_2;
+   long long ct3_1=upper_bound(x,x+m,3)-lower_bound(x,x+m,3);
+   long long ct3_2=upper_bound(y,y+n,3)-lower_bound(y,y+n,3);
+   res+=ct3_1*(n-ct3_2);
+   ct1_2=upper_bound(y,y+n,1)-lower_bound(y,y+n,1);
+   for(int i=4;i<=max1;i++)
+   {
+       long long ct1=upper_bound(x,x+m,i)-lower_bound(x,x+m,i);
+       long long ct2=y+n-lower_bound(y,y+n,i+1);
+       res+=ct1*(ct2+ct1_2);
+   }
+   return res;
+   
+}
+===============================================================================================
+//Merge Without Extra Space-->java
+class MergeSort
+{
+    // Function to merge the two sorted arrays
+    // arr1[], arr2[]: two input arrays
+    // n, m: size of arr1[] and arr2[] respectively
+    public static void merge(int arr1[], int arr2[], int n, int m) 
+    {
+       // add your code here 
+       for (int i = 0; i < n; i++) {
+		if (arr1[i] > arr2[0]) {
+			int key  = arr1[i];
+			/** replace arr1[i] by arr2[0] **/
+			arr1[i] = arr2[0];
+			/** find place for key in arr2 **/
+			int j;
+			for (j = 1; j < m  && key>arr2[j]; j++)
+				arr2[j-1] = arr2[j];
+			arr2[j-1] = key;
+		}
+	}
+    }
+}
+===============================================================================================
+//Merge three sorted arrays-->cpp
+Vector mergeThree(Vector& A, Vector& B, Vector& C) 
+{ 
+    //Your code here
+    vector<int> X(A.size()+B.size()+C.size());
+    int l1=A.size(),l2=B.size(),l3=C.size();
+    int i{0},j{0},k{0},z{0};
+    while(i<l1&&j<l2&&k<l3)
+    {
+        if(A[i]>B[j])
+        {
+            if(B[j]>C[k])
+                X[z++]=C[k++];
+            else
+                X[z++]=B[j++];
+        }
+        else
+        {
+            if(A[i]>C[k])
+                X[z++]=C[k++];
+            else
+                X[z++]=A[i++];
+        }
+        
+    }
+    if(i==l1)
+    {
+        while(j<l2&&k<l3)
+        {
+            if(C[k]>B[j])
+            {
+                X[z++]=B[j++];
+            }
+            else
+            {
+                X[z++]=C[k++];
+            }
+                
+        }
+    }
+    else if(j==l2)
+    {
+        while(i<l1&&k<l3)
+        {
+            if(C[k]>A[i])
+            {
+                X[z++]=A[i++];
+            }
+            else
+            {
+                X[z++]=C[k++];
+            }
+                
+        }
+    }
+    else if(k==l3)
+    {
+        while(j<l2&&i<l1)
+        {
+            if(A[i]>B[j])
+            {
+                X[z++]=B[j++];
+            }
+            else
+            {
+                X[z++]=A[i++];
+            }
+                
+        }
+    }
+    while(j<l2)
+    {
+        X[z++]= B[j++];
+    }
+    while(i<l1)
+    {
+        X[z++]= A[i++];
+    }
+    while(k<l3)
+    {
+        X[z++]= C[k++];
+    }
+    return X;
+} 
+===============================================================================================
+//Closer to sort-->
+===============================================================================================
+//Minimum Platforms-->cpp
+int findPlatform(int arr[], int dep[], int n)
+{
+	// Your code here
+	sort(arr, arr + n); 
+    sort(dep, dep + n); 
+  
+    
+    int plat_needed = 1, result = 1; 
+    int i = 1, j = 0; 
+  
+     
+    while (i < n && j < n) { 
+         
+        if (arr[i] <= dep[j]) { 
+            plat_needed++; 
+            i++; 
+        } 
+  
+        
+        else if (arr[i] > dep[j]) { 
+            plat_needed--; 
+            j++; 
+        } 
+  
+        
+        if (plat_needed > result) 
+            result = plat_needed; 
+    } 
+  
+    return result; 
+}

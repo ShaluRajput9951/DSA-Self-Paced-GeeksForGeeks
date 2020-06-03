@@ -1,0 +1,141 @@
+Print 1 To N Without Loop.py
+def printNos(N):
+    #Your code here
+    if N == 0:
+        return
+    else:
+        printNos(N-1)
+        print (N,end=" ")
+
+
+============================================================
+Sum of Digits of a Number.py
+def sumOfDigits(n):
+    '''
+    :param n: given number
+    :return: sum of digits of n.
+    '''
+    # code here
+    if n < 10:
+        return n
+    else:
+        return (sumOfDigits(n//10) + n%10)
+============================================================
+Count Total Digits in a Number.py
+def countOfDigits(n):
+    '''
+    :param n: given number
+    :return: count of digits of n.
+    '''
+    # code here
+
+    return (len(str(n)))
+
+============================================================
+Digital Root.py
+def digitalRoot(n):
+    '''
+    :param n: given number 
+    :return: digital root as defined
+    '''
+    # code here
+    while len(str(n)) > 1:
+        digits = [int(i) for i in list(str(n))]
+        n = sum(digits)
+    return n
+
+============================================================
+Fibonacci Using Recursion.py
+def fibonacci(n):
+    #code here
+    if n==1 or n==2:
+        return 1
+    else:
+        return (fibonacci(n-1) + fibonacci(n-2))
+
+============================================================
+Tower Of Hanoi.py
+class Hanoi:
+    moves = 0  # stores count of moves. You need to update the count in this variable
+
+    def toh(self, N, fromm, to, aux):
+        # Your code here
+
+        if N == 1:
+            print ("move disk 1 from rod",fromm,"to rod",to)
+            Hanoi.moves += 1
+            return
+        self.toh(N-1, fromm, aux, to)
+        print ("move disk",N,"from rod",fromm,"to rod",to)
+        Hanoi.moves += 1
+        self.toh(N-1, aux, to, fromm)
+
+============================================================
+Josephus problem.py
+def josephus(n,k):
+    #Your code here
+    if n == 1:
+        return n
+    return ((josephus(n-1,k)+k-1)%n + 1)
+============================================================
+Lucky Numbers
+
+============================================================
+Power Using Recursion.py
+def RecursivePower(n,p):
+    '''
+    return value of n^p recursively;
+    '''
+    # code here
+    if p == 1:
+        return n
+    elif p == 0:
+        return 1
+    else:
+        return (n * RecursivePower(n,p-1))
+============================================================
+Power Of Numbers.cpp
+long long power(int N,int R)
+{
+   //Your code here
+   if(R==0) {return 1;}
+   return ((power(N,R-1)%(1000000007))*N%(1000000007))%(1000000007);
+}
+
+============================================================
+Power Set Using Recursion.py
+def powerSet(s):
+    '''
+    :param s: given string s
+    :return: list containing power set of s.
+    '''
+
+    perm = []
+    if len(s) == 0:
+        perm.append("")
+        return perm
+    first = s[0]
+    rem = s[1:len(s)]
+    words = powerSet(rem)
+    perm.extend(words)
+    for word in words:
+        perm.append(first+word)
+    return perm
+============================================================
+Possible Words From Phone Digits.py
+phone = ["abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"]
+
+def printString(digits,n,string="",index=0):
+    if index == n:
+        print (string,end=" ")
+        return
+    for i in range(len(phone[digits[index]-2])):
+        string += phone[digits[index]-2][i]
+        printString(digits,n,string,index+1)
+        string = list(string)
+        string.pop()
+        string = ''.join(string)
+        
+def possibleWords(a,N):
+    printString(a,N)
+============================================================

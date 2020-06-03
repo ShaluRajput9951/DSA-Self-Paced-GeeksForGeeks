@@ -1,0 +1,476 @@
+//Implement stack using array-->cpp
+void MyStack :: push(int x)
+{
+arr[++top]=x;
+}
+
+int MyStack :: pop()
+{
+if(top==-1) return -1;
+return arr[top--];
+}
+=========================================================================================
+//Implement Stack using Linked List-->cpp
+void MyStack ::push(int x) {
+StackNode* temp=new StackNode(x);
+temp->next=top;
+top=temp;
+}
+
+int MyStack ::pop() {
+if(!top) return -1;
+StackNode* temp=top;
+top=top->next;
+int data=temp->data;
+free(temp);
+return data;
+}
+=========================================================================================
+//Operations on Stack-->cpp
+void insert(stack<int> &s,int x)
+{
+    s.push(x);
+}
+
+void remove(stack<int> &s)
+{
+    s.pop();
+}
+
+void headOf_Stack(stack<int> &s)
+{
+    int x= s.top();
+    cout<<x<<" "<<endl;
+    
+} 
+
+bool find(stack<int> s, int val)
+{
+    while(!s.empty())
+    {
+        if(s.top() == val)
+        return true;
+        s.pop();
+    }
+return false;
+}
+=========================================================================================
+//Removing consecutive duplicates-->cpp
+string removeConsecutiveDuplicates(string s)
+{
+    stack <char> a;
+    a.push(s[0]);
+    
+    for(int i=1;i<s.size();i++)
+    {
+        if(s[i]==s[i-1])
+        {
+            continue;
+        }
+        else
+        {
+            a.push(s[i]);
+        }
+    }
+    
+    
+    string ss="";
+    
+    while(!a.empty())
+    {
+        ss=ss+a.top();
+        a.pop();
+    }
+    reverse(ss.begin(),ss.end());
+    return ss;
+    
+}
+=========================================================================================
+//Removing consecutive duplicates - 2-->cpp
+string removePair(string str){
+string res;
+int j = 0;
+res.push_back(str[0]);
+int n = str.length();
+for(int i = 1; i < n; i++)
+{
+if(j < 0)
+{
+res.push_back(str[i]);
+j++;
+}
+else if(res[j] == str[i])
+{
+res.pop_back();
+j--;
+}
+else
+{
+res.push_back(str[i]);
+j++;
+}
+
+}
+return res;
+}
+
+=========================================================================================
+//Parenthesis Checker-->cpp
+bool ispar(string x)
+{
+string stack;
+stack.push_back(x[0]);
+int top = 0;
+int n = x.length();
+
+for(int i = 1; i < n; i++)
+{
+
+char ch = x[i];
+
+if(top == -1)
+{
+stack.push_back(x[i]);
+top++;
+}
+else if(x[i] == ')')
+{
+if(stack[top] != '(')
+return false;
+stack.pop_back();
+top--;
+}
+else if(x[i] == ']')
+{
+if(stack[top] != '[')
+return false;
+stack.pop_back();
+top--;
+}
+else if(x[i] == '}')
+{
+if(stack[top] != '{')
+return false;
+stack.pop_back();
+top--;
+}
+else
+{
+stack.push_back(x[i]);
+top++;
+}
+
+}
+if(top != -1)
+return false;
+return true;
+}
+=========================================================================================
+//Implement two stacks in an array-->cpp
+void twoStacks :: push1(int x)
+{
+    
+    arr[++top1]=x;
+}
+   
+/* The method push to push element into the stack 2*/
+void twoStacks ::push2(int x)
+{
+    arr[--top2]=x;
+
+}
+   
+/* The method pop to pop element from the stack 1 */
+//Return the popped element
+int twoStacks ::pop1()
+{
+    if(top1==-1) return -1;
+    return arr[top1--];
+}
+
+/* The method pop to pop element from the stack 2 */
+//Return the popped element
+int twoStacks :: pop2()
+{
+    if(top2==size) return -1;
+    return arr[top2++];
+}
+
+=========================================================================================
+//Stack using two queues-->java
+class Queues
+{
+    Queue<Integer> q1 = new LinkedList<Integer>();
+    Queue<Integer> q2 = new LinkedList<Integer>();
+    
+    /*The method pop which return the element poped out of the stack*/
+    int pop()
+    {
+	    if (q1.isEmpty())
+	        return -1;
+	    int size = q1.size();
+	    for (int i = 0; i < size - 1; i++)
+	        q1.add(q1.poll());
+	    return q1.poll();
+    }
+	
+    /* The method push to push element into the stack */
+    void push(int a)
+    {
+	    q1.add(a);
+    }
+}
+=========================================================================================
+//Get min at pop-->java
+class GetMin
+{
+    
+    /* inserts elements of the array into 
+        stack and return the stackn*/
+    public static Stack<Integer> _push(int arr[],int n)
+    {
+        Stack<Integer>s=new Stack<>();
+        int min=arr[0];
+        for(int i=0;i<n;i++){
+            min=Math.min(min,arr[i]);
+            s.push(min);
+        }
+        return s;
+    }
+    static void _getMinAtPop(Stack<Integer>s)
+    {
+        while(!s.empty())
+        System.out.print(s.pop()+" ");
+    }
+}
+=========================================================================================
+//Delete middle element of a stack-->cpp
+stack<int> deleteMid(stack<int>s,int sizeOfStack,int current)
+{
+  stack<int>s1;
+  int x=ceil((float)sizeOfStack/2);
+
+while(!s.empty())
+  {
+      s1.push(s.top());
+      s.pop();
+  }
+
+  while(!s1.empty())
+  {
+      int y=s1.top();
+      if(x==1)
+      {
+         x--;
+        s1.pop();
+        continue;
+      }
+      s.push(y);
+      s1.pop();
+   x--;
+  }
+
+  return s;
+}
+
+=========================================================================================
+//Infix to Postfix-->cpp
+bool isOperand(char ch)
+{
+if((ch >= 65 && ch <= 90) || (ch >= 97 && ch <= 122))
+return true;
+return false;
+}
+int precedence(char ch)
+{
+switch(ch)
+{
+case '(':
+return -1;
+case '+':
+case '-':
+return 1;
+case '*':
+case '/':
+return 2;
+case '^':
+return 3;
+}
+}
+string infixToPostfix(string s)
+{
+string result;
+stack<char> operators;
+operators.push('(');
+s.push_back(')');
+std :: string :: iterator it = s.begin();
+while(it != s.end())
+{
+char ch = *it;
+if(isOperand(ch))
+result.push_back(ch);
+else
+{
+if(ch == '(')
+operators.push('(');
+else if(ch == ')')
+{
+while(operators.top() != '(')
+{
+result.push_back(operators.top());
+operators.pop();
+}
+operators.pop();
+}
+else
+{
+char check = operators.top();
+operators.pop();
+while(precedence(check) >= precedence(ch))
+{
+result.push_back(check);
+check = operators.top();
+operators.pop();
+}
+operators.push(check);
+operators.push(ch);
+}
+}
+it++;
+}
+while(!operators.empty())
+{
+result.push_back(operators.top());
+operators.pop();
+}
+return result;
+}
+=========================================================================================
+//Evaluation of Postfix Expression-->cpp
+bool isOperand(char ch)
+{
+if(ch >= 0 && ch <= 9)
+return true;
+return false;
+}
+int evaluatePostfix(string &str)
+{
+vector<int> result;
+std :: string :: iterator it = str.begin();
+
+while(it != str.end())
+{
+char ch = *it;
+if(isOperand(ch-48))
+result.push_back(ch - 48);
+else
+{
+int a = result.back();
+result.pop_back();
+int b = result.back();
+result.pop_back();
+switch(ch)
+{
+case '+':
+result.push_back(a + b);
+break;
+case '-':
+result.push_back(b - a);
+break;
+case '*':
+result.push_back(a * b);
+break;
+case '/':
+result.push_back(b / a);
+
+}
+}
+it++;
+}
+return result.back();
+}
+
+=========================================================================================
+//Stock span problem-->cpp
+void calculateSpan(int price[], int n, int S[])
+{
+   // Your code here
+   S[0] = 1;  
+  
+    // Calculate span value of remaining days   
+    // by linearly checking previous days  
+    for (int i = 1; i < n; i++)  
+    {  
+        S[i] = 1; // Initialize span value  
+  
+        // Traverse left while the next element   
+        // on left is smaller than price[i]  
+        for (int j = i - 1; (j >= 0) &&  
+                (price[i] >= price[j]); j--)  
+            S[i]++;  
+    }  
+}
+void printArray(int arr[], int n)  
+{  
+    for (int i = 0; i < n; i++)  
+        cout << arr[i] << " ";  
+}
+=========================================================================================
+//Next larger element-->java
+class solve{
+    public static void printNGE(long[] arr, int n) { 
+        Stack<Long>s=new Stack<>();
+        Stack<Long>t=new Stack<>();
+        t.push((long)-1);
+        s.push(arr[n-1]);
+        for(int i=n-2;i>-1;i--){
+            if(arr[i]<s.peek()){
+                t.push(s.peek());
+                s.push(arr[i]);
+            }
+            
+            else{
+                while(!s.empty() && s.peek()<arr[i]){
+                    s.pop();
+                }
+                if(s.empty())
+                    t.push((long)-1);
+                else
+                    t.push(s.peek());
+                s.push(arr[i]);
+            }
+        }
+        while(!t.empty())
+        System.out.print(t.pop()+" ");
+    } 
+}
+=========================================================================================
+//Maximum Rectangular Area in a Histogram
+=========================================================================================
+//The Celebrity Problem-->cpp
+int getId(int M[MAX][MAX], int n)
+{
+    //Your code here
+    stack<int> s;
+    
+   for(int i=0;i<n;i++){
+    for(int j=0;j<n;j++){
+        if(i!=j){   // makes sense; person knows himself
+            if(M[i][j]==1){// if 1->2 means 1 knws 2
+            s.push(j);// then push 2; i.e push celebrity
+            if(!s.empty() && M[i][j]==M[j][i]) // is stack not empty and
+            s.pop();                          // 2->1 then pop top
+            }
+        }
+    }
+}
+    
+        if(s.empty())   // in the end if stack is empty; no celebrity
+        return -1;
+        
+        return s.top(); //else there will be celebrity
+        
+}
+=========================================================================================
+//Maximum of minimum for every window size
+

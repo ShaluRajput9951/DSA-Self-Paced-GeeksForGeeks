@@ -1,0 +1,797 @@
+//Preorder Traversal-->java
+
+class BinaryTree
+{
+    /* Computes the number of nodes in a tree. */
+    static void preorder(Node root)
+    {
+        // Code here
+        if(null!=root)
+{
+System.out.print(root.data+" ");
+preorder(root.left);
+preorder(root.right);
+}
+    }
+
+}
+=========================================================================================
+//Inorder Traversal-->java
+
+class Tree
+{
+ 
+    void inOrder(Node root)
+{
+if(null!=root)
+{
+inOrder(root.left);
+System.out.print(root.data+" ");
+inOrder(root.right);
+}
+}
+    
+    
+}
+=========================================================================================
+#Postorder Traversal-->python
+
+def postOrder(root):
+    
+    
+    if root:
+        postOrder(root.left)
+        postOrder(root.right)
+        print(root.data,end=" ")
+=========================================================================================
+#Height of Binary Tree-->python
+        '''
+def height(root):
+    
+    # code here
+    if (root==None):
+        return 0
+    return 1+(max(height(root.left),height(root.right)))
+=========================================================================================
+//Determine if Two Trees are Identical-->java
+
+class Tree
+{
+	boolean isIdentical(Node r1, Node r2)
+{
+try{
+if(r1==null && r2==null)
+return true;
+
+else if(r1.data==r2.data)
+return(isIdentical(r1.left,r2.left)&&isIdentical(r1.right,r2.right));
+
+
+else
+return false;
+
+}
+catch(Exception e){
+return false;
+}
+}
+	
+}
+=========================================================================================
+//Children Sum Parent-->cpp
+
+void p(Node *root, int *s)
+{
+    if(!root) return;
+    int p1=0;
+    if(root->left)
+    p1+=root->left->data;
+    if(root->right) p1+=root->right->data;
+    if(p1!=root->data && (root->left || root->right)) {*s=0; return;}
+    p(root->left,s);
+    p(root->right,s);
+    
+}
+
+
+
+
+int isSumProperty(Node *node)
+{
+  int s=1;
+  p(node,&s);
+  return s;
+}
+=========================================================================================
+//Level order traversal-->cpp
+
+void levelOrder(Node* root)
+{
+    queue<Node*>q;
+    q.push(root);
+    cout<<root->data<<" ";
+    while(!q.empty())
+    {
+        int g=q.size();
+        while(g--)
+        {
+            if(q.front()->left)
+            { cout<<q.front()->left->data<<" "; q.push(q.front()->left);}
+            if(q.front()->right)
+           { cout<<q.front()->right->data<<" "; q.push(q.front()->right); }
+            q.pop();
+        }
+    }
+    
+}
+
+=========================================================================================
+//Level order traversal Line by Line-->cpp
+
+void levelOrder(Node* root)
+{
+  if(!root) return;
+  queue<Node*> q;
+  q.push(root);
+  q.push(NULL);
+  while(q.size()!=1) {
+      root = q.front();
+      q.pop();
+      if(root!=NULL)
+          cout<<root->data<<" ";
+      else if(root==NULL) {
+          cout<<"$"<<" ";
+          q.push(NULL);
+          continue;
+      }
+      
+        if(root->left)
+            q.push(root->left);
+        if(root->right)
+            q.push(root->right);
+  }
+    cout<<"$"<<" ";
+}
+=========================================================================================
+//Level order traversal in spiral form-->cpp
+
+void levelorder(Node * root,map<int,vector<pair<int,int> > >&m,int lvl,int hd)
+{
+    if(root==NULL) return;
+    m[lvl].push_back({hd,root->data});
+    levelorder(root->left,m,lvl+1,hd-1);
+    levelorder(root->right,m,lvl+1,hd+1);
+}
+
+void printSpiral(Node *root)
+{
+    map<int,vector<pair<int,int> > >  m;
+    int lvl=0;
+    int hd=0;
+    levelorder(root,m,lvl,hd);
+     map<int,vector<pair<int,int> > > :: iterator it;
+    
+     int temp=0;
+    for(it=m.begin();it!=m.end();it++)
+    {
+         //sort(((*it).second).begin(),((*it).second).end());
+        if(temp%2==0)
+        {
+            for(int i=(*it).second.size()-1;i>=0;i--)
+            {
+                cout<<((*it).second)[i].second<<" ";
+            }
+        }
+        else
+        {
+             for(int i=0;i<(*it).second.size();i++)
+            {
+                cout<<((*it).second)[i].second<<" ";
+            }
+        }
+        temp++;
+    }
+    
+}
+=========================================================================================
+//Maximum Width of Tree-->cpp
+
+void level(Node* root, int &lmax,int &gmax)
+{
+    if(root==NULL)
+        return;
+        queue<Node*>q;
+            q.push(root);
+            q.push(NULL);
+                while(q.size()>1)
+                    {
+                        Node* curr= q.front();
+                        q.pop();
+                        if(curr==NULL)
+                            {
+                                if(lmax>gmax)
+                                gmax=lmax; 
+                                lmax=0;
+                                q.push(NULL);
+                                // cout<<" "<<endl;
+                            }
+                            else
+                            {
+                                // cout<< curr->data<<" ";
+                                lmax= lmax+1;
+                                if(curr->left!=NULL)
+                                    q.push(curr->left);
+                                if(curr->right!=NULL)
+                                    q.push(curr->right);    
+                            }
+                    }
+                    if(lmax>gmax)
+                    gmax=lmax;
+}
+int getMaxWidth(Node* root)
+{
+   // Your code here
+   if(root==NULL)
+    return 0;
+    int lmax=0, gmax=0;
+    level(root,lmax, gmax);
+    return gmax;
+}
+
+
+=========================================================================================
+//Check for Balanced Tree-->cpp
+
+int solve(Node* root,bool &check)
+{
+    if(!root)
+        return 0;
+    
+    int l=solve(root->left,check);
+    int r=solve(root->right,check);
+    
+    if(abs(l-r)>1)
+        check=false;
+    
+    return (max(l,r)+1);    
+    
+}
+
+
+bool isBalanced(Node *root)
+{
+    bool check=true;
+    solve(root,check);
+    
+    return check;
+}
+=========================================================================================
+//Left View of Binary Tree-->cpp
+
+int max_depth=-1;
+
+void solve(Node* root,int depth) {
+if(!root)
+return;
+if(depth>max_depth)
+{cout<<root->data<<" ";max_depth=depth;}
+
+solve(root->left,depth+1);
+solve(root->right,depth+1);
+
+}
+void leftView(Node *root)
+{
+max_depth=-1;
+solve(root,0);
+}
+=========================================================================================
+//Right View of Binary Tree-->cpp
+
+void traversal(Node*root, map<int,int>&m,int dist)
+{
+if(root==NULL) return;
+m[dist]=root->data;
+traversal(root->left,m,dist+1);
+traversal(root->right,m,dist+1);
+}
+void rightView(Node *root)
+{
+map<int,int>m;
+traversal(root,m,0);
+for(auto i=m.begin(); i!=m.end(); i++)
+cout << i->second << " ";
+}
+
+=========================================================================================
+//Lowest Common Ancestor in a Binary Tree-->cpp
+
+Node* lca(Node* root ,int n1 ,int n2 )
+{
+   //Your code here 
+   Node *lnode, *rnode;
+if(!root){
+return NULL;
+}
+
+if(root->data == n1 || root->data == n2){
+return root;
+}
+
+lnode = lca(root->left, n1, n2);
+rnode = lca(root->right, n1, n2);
+if(lnode && rnode){
+return root;
+}
+
+return (lnode != NULL) ? lnode : rnode;
+}
+=========================================================================================
+//Diameter of Binary Tree-->cpp
+
+int find(Node *root,int &h)
+{
+if(root==NULL)return 0;
+int lh=find(root->left,h);
+int rh=find(root->right,h);
+h=max(h,lh+rh+1);
+return max(lh,rh)+1;
+}
+int diameter(Node *root)
+{
+int h=-1;
+find(root,h);
+return h;
+}
+
+=========================================================================================
+//Vertical Width of a Binary Tree-->cpp
+
+void vertical_width(Node *root,set<int> &s,int hd)
+{
+    if(root)
+    {
+        s.insert(hd);
+        vertical_width(root->left,s,hd-1);
+        vertical_width(root->right,s,hd+1);
+    }
+}
+
+int verticalWidth(Node* root)
+{
+    set<int> s;
+    vertical_width(root,s,0);
+    return s.size();
+}
+=========================================================================================
+//Mirror Tree-->cpp
+
+Node * treemirror(Node *P)
+{
+Node *tmp=nullptr;
+
+if(!P || (!P->left && !P->right)) return P;
+else
+{
+tmp=P->right;
+P->right=treemirror(P->left);
+P->left=treemirror(tmp);
+}
+
+return P;
+}
+void mirror(Node* node)
+{
+node=treemirror(node);
+}
+=========================================================================================
+//Check if subtree-->cpp
+
+bool isIdentical(Node *r1, Node *r2)
+{
+    if(r1==NULL&&r2==NULL)
+        return true;
+    else if(r1==NULL&&r2!=NULL)
+        return false;
+    else if(r1!=NULL&&r2==NULL)
+        return false;
+    else if(r1->data==r2->data)
+        return (isIdentical(r1->left,r2->left)&&isIdentical(r1->right,r2->right));
+    else
+        return false;
+}
+bool isSubTree(Node* T, Node* S) {
+    if(S==NULL)
+        return true;
+    if(T==NULL)
+        return false;
+    if(isIdentical(T,S)){
+        return true;
+    }
+    return (isSubTree(T->left,S)||isSubTree(T->right,S));
+}
+=========================================================================================
+//Make Binary Tree From Linked List-->cpp
+
+void convert(Node *head, TreeNode *&root) {
+   TreeNode *newnode=new TreeNode(head->data);
+  
+   root=newnode;
+   queue<TreeNode*>q;
+   q.push(root);
+   Node *temp=head->next;
+    TreeNode *new1;
+     TreeNode *new2;
+   while(temp!=NULL)
+   {  
+     new1=new  TreeNode(temp->data);
+     TreeNode *t=q.front();
+        q.pop();
+        t->left=new1;
+        q.push(t->left);
+       temp=temp->next;
+       if(temp!=NULL)
+     { new2=new  TreeNode(temp->data);
+  t->right=new2;
+        q.push(t->right);}
+       
+       
+        if(temp!=NULL)
+        temp=temp->next;
+       
+   }
+    // Your code here
+}
+
+=========================================================================================
+//Binary Tree to DLL-->java
+
+class GfG
+{
+Node head;
+Node prev=null;
+Node bToDLL(Node root)
+{
+if(root==null)
+return root;
+bToDLL(root.left);
+if(prev==null)
+head=root;
+else{
+prev.right=root;
+root.left=prev;
+}
+prev=root;
+bToDLL(root.right);
+return head;
+}
+}
+=========================================================================================
+//Binary Tree to CDLL-->cpp
+Node *head=NULL;
+Node *temp=NULL;
+void in(Node *root)
+{
+if(root==NULL)
+{
+return;
+}
+in(root->left);
+if(head==NULL)
+{
+head=root;
+temp=head;
+}
+else
+{
+temp->right=root;
+temp->right->left=temp;
+temp=temp->right;
+}
+in(root->right);
+}
+Node *bTreeToCList(Node *root)
+{
+if(root==NULL)
+{
+return NULL;
+}
+
+in(root);
+temp->right=head;
+head->left=temp;
+Node *x=head;
+head=NULL;
+return x;
+}
+=========================================================================================
+#Connect Nodes at Same Level-->python
+def connect(root):
+    if root==None:
+        return
+    q = []
+    q.append(root)
+    while(q):
+        size = len(q)
+        for i in range(size):
+            temp = q.pop(0)
+            if i==(size-1):
+                temp.nextRight = None
+            else:
+                temp.nextRight = q[0]
+            if temp.left:
+                q.append(temp.left)
+            if temp.right:
+                q.append(temp.right)
+
+
+=========================================================================================
+//Construct Binary Tree from Parent Array-->cpp
+Node *createTree(int a[], int len)
+{
+    vector<pair<Node*,bool>> arr;
+    for(int i=0;i<len;i++)
+    {
+        Node *temp = new Node(i);
+        temp->left = NULL;
+        temp->right = NULL;
+        arr.push_back(make_pair(temp,false));
+    }
+    int ans;
+    for(int i=0;i<len;i++)
+    {
+        if(a[i]==-1)
+        {
+            ans = i;
+            continue;
+        }
+        int parent = a[i];
+        bool dir = arr[parent].second;
+        if(dir==false)
+        {
+            (arr[parent]).first->left = arr[i].first;
+            (arr[parent]).second = true;
+        }
+        else
+            (arr[parent].first)->right = arr[i].first;
+    }
+    return arr[ans].first;
+}
+=========================================================================================
+//Tree from Postorder and Inorder-->cpp
+Node *build(int in[],int post[],int str,int end,int *i)
+{
+    
+    if(str>end)
+    {
+        return NULL;
+    }
+    else
+    {
+        int a=post[*i];
+        *i=*i-1;
+        int b;
+        for(b=str;b<=end;b++)
+        {
+            if(in[b]==a)
+            {
+                break;
+            }
+        }
+        struct Node *root=new Node(a);
+        root->right=build(in,post,b+1,end,i);
+        root->left=build(in,post,str,b-1,i);
+        return root;
+    }
+}
+Node *buildTree(int in[], int post[], int n) {
+    int i=n-1;
+    return build(in,post,0,n-1,&i);
+    
+}
+
+=========================================================================================
+//Foldable Binary Tree-->cpp
+
+bool areMirror(Node* left, Node* right){
+if(left==NULL && right==NULL)
+return true;
+if(left==NULL|| right==NULL)
+return false;
+return areMirror(left->left,right->right) && areMirror(left->right, right->left);
+}
+bool IsFoldable(Node* root)
+{
+if(!root)
+return true;
+return areMirror(root->left,root->right);
+
+}
+=========================================================================================
+//Maximum path sum from any node-->cpp
+int maxpathsum(Node *root, bool isanytaken)
+{
+    if(root==NULL && isanytaken==false)
+        return INT_MIN;
+    if(root==NULL)
+        return 0;
+    if(isanytaken==false)
+    {
+        int op1 = root->data + maxpathsum(root->left,true);
+        int op2 = root->data + maxpathsum(root->right,true);
+        int op3 = root->data + maxpathsum(root->left,true) + maxpathsum(root->right,true);
+        int op4 = max(maxpathsum(root->left,isanytaken),maxpathsum(root->right,isanytaken));        
+        return max(op1,max(op2,max(op3,op4)));
+    }
+    int op1 = root->data + maxpathsum(root->left,true);
+    int op2 = root->data + maxpathsum(root->right,true);
+    int op3 = 0;
+    return max(op1,max(op2,op3));
+}
+int findMaxSum(Node* root)
+{
+    // Your code goes here
+    return maxpathsum(root,false);
+}
+=========================================================================================
+//Maximum difference between node and its ancestor-->cpp
+int Traverse(Node *root, int &maxm){
+  if(root == nullptr)
+    return INT_MAX;
+  int mini = min(Traverse(root->left, maxm), Traverse(root->right, maxm));
+  maxm = max(maxm, root->data-mini);
+  mini = min(mini, root->data);
+  return mini;
+}
+
+int maxDiff(Node* root){
+  int maxm = INT_MIN;
+  Traverse(root, maxm);
+  return maxm;
+}
+=========================================================================================
+//Count Number of SubTrees having given Sum-->cpp
+
+int countSubtreesWithSumX(Node* root, int x){
+    if(root){
+        int a = countSubtreesWithSumX(root->left,x);
+        int b = countSubtreesWithSumX(root->right,x);
+        if(root->left)
+            root->data += root->left->data;
+        if(root->right)
+            root->data += root->right->data;
+        int ans = a+b;
+        if(root->data==x)
+            ans++;
+        return ans;
+    }
+    return 0;
+}
+=========================================================================================
+//Serialize and Deserialize a Binary Tree-->cpp
+
+void serialize(Node *root,vector<int> &A)
+{
+    //Your code here
+    if(root==NULL)
+    {
+        A.push_back(-1);
+        return;
+    }
+    A.push_back(root->data);
+    serialize(root->left,A);
+    serialize(root->right,A);
+}
+
+/*this function deserializes
+ the serialized vector A*/
+Node* realdeSerialize(vector<int> &A,int &index)
+{
+    
+    if(index>=A.size() || A[index]==-1)
+    {
+        index = index +1;
+        return NULL;
+    }
+    Node *root = new Node(A[index]);
+    index = index +1;
+    root->left = realdeSerialize(A,index);
+    root->right = realdeSerialize(A,index);  
+    return root;
+}
+Node* deSerialize(vector<int> &A)
+{
+   int index=0;
+   return realdeSerialize(A,index);
+}
+=========================================================================================
+//Node at distance
+=========================================================================================
+//ZigZag Tree Traversal-->cpp
+
+void zigZagTraversal(Node* root)
+{
+    if(!root)
+           return;
+    vector<vector<int>>res;
+    queue<Node*>q;
+    q.push(root);
+    while(!q.empty())
+    {
+        int cnt=q.size();
+        vector<int>temp;
+        while(cnt--)
+        {
+            
+            Node* t=q.front();
+            temp.push_back(t->data);
+            q.pop();
+        
+            if(t->left)
+                  q.push(t->left);
+            
+             if(t->right)
+                   q.push(t->right);    
+        
+             
+        }
+        res.push_back(temp);
+    }
+     int n=res.size();
+     bool l=true;
+     for(int i=0;i<n;i++)
+     {
+         if(l)
+         {
+             int m=res[i].size();
+             for(int j=0;j<m;j++)
+             {
+                 
+                 cout<<res[i][j]<<" ";
+             }
+             
+         }
+         else
+         {
+             int m=res[i].size();
+             for(int j=m-1;j>=0;j--)
+             {
+                 cout<<res[i][j]<<" ";
+             }
+             
+         }
+         l=!l;
+     }
+     
+     
+}
+=========================================================================================
+//Maximum sum of Non-adjacent nodes-->cpp
+
+int getMaxSum(Node *root) {
+    if(root==NULL)
+        return 0;
+    int include_root = 0, exclude_root = 0;
+    if(root->left){
+        include_root+=  getMaxSum(root->left->left)+getMaxSum(root->left->right);
+    }
+    if(root->right)
+        include_root+=  getMaxSum(root->right->left)+getMaxSum(root->right->right);
+    include_root+= root->data;
+    exclude_root = getMaxSum(root->left) + getMaxSum(root->right);
+    return max(include_root,exclude_root);    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
